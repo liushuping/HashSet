@@ -1,5 +1,5 @@
 {
-  "name": "HashSet",
+  "name": "hashset",
   "version": "0.0.0",
   "description": "A simple hash set in JavaScript",
   "main": "hashset.js",
