@@ -1,0 +1,23 @@
+{
+  "name": "HashSet",
+  "version": "0.0.0",
+  "description": "A simple hash set in JavaScript",
+  "main": "hashset.js",
+  "scripts": {
+    "test": "mocha ./test/hashset.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liushuping/hashset"
+  },
+  "keywords": [
+    "HashSet",
+    "JavaScript",
+    "Node"
+  ],
+  "author": "Shuping LIU",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liushuping/hashset/issues"
+  }
+}
