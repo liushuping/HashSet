@@ -14,6 +14,9 @@ describe('#contains', function() {
 		hashset = new HashSet();
 		hashset.add('a');
 		assert.strictEqual(hashset.contains('a'), true);
+
+		hashset = new HashSet(1, 2, 3);
+		assert.strictEqual(hashset.contains(2), true);
 	});
 
 	it('should initialze with all elements in the given array.', function() {

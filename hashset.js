@@ -1,10 +1,14 @@
 function HashSet(init) {
 	this.map = Object.create(null);
+	var map = this.map;
+
 	if (toString.call(init) == '[object Array]') {
-		var map = this.map;
 		init.forEach(function(v) { map[v] = 1; });
-	} else {
+	} else if (arguments.length > 1) {
 		this.map[init] = 1;
+		[].forEach.call(arguments, function(v) { map[v] = 1; })
+	} else if (arguments.length === 1) {
+		map[init] = 1;
 	}
 }
 
