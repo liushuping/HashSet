@@ -1,7 +1,7 @@
 HasSet
 ======
 A simple hash set in JavaScript
-[![build status](https://travis-ci.org/liushuping/hashset.svg)](https://travis-ci.org/liushuping/hashset.svg)
+[![build status](https://travis-ci.org/liushuping/HashSet.svg?branch=master)](https://travis-ci.org/liushuping/HashSet.svg?branch=master)
 
 ##Create a new HashSet
 ```
