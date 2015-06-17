@@ -36,3 +36,12 @@ describe('#remove', function() {
 		});
 	});
 });
+
+describe('#length', function() {
+	it('should be readonly property', function() {
+		var hashset = new HashSet(1,2,3);
+		assert.strictEqual(hashset.length, 3);
+		hashset.length = 100;
+		assert.strictEqual(hashset.length, 3);
+	});
+})
