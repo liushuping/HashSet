@@ -4,7 +4,7 @@ A simple hash set in JavaScript
 [![build status](https://travis-ci.org/liushuping/HashSet.svg?branch=master)](https://travis-ci.org/liushuping/HashSet.svg?branch=master)
 
 ## Create a new HashSet
-```
+```javascript
 var HashSet = require('hashset');
 
 //Create an empty hash set
@@ -21,17 +21,17 @@ var hashset = new HashSet([1, 2, 3]);
 ```
 
 ## Check whether a value is in the hash set
-```
+```javascript
 hashset.contains(val);
 ```
 
 ## Add a new value into the hash set
-```
+```javascript
 hashset.add(val);
 ```
 
 ## Remove a value from the hash set
-```
+```javascript
 hashset.remove(val);
 ```
 Removing an non-existing value will not trigger any error
