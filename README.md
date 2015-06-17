@@ -37,6 +37,11 @@ hashset.remove(val);
 ```
 Removing an non-existing value will not trigger any error
 
+## Get the length of the hash set
+```javascript
+hashset.length;
+```
+
 ## Test
 Make sure `mocha` is installed globally
 ```
