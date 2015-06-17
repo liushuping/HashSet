@@ -8,6 +8,12 @@ function HashSet(init) {
 		}
 	});
 
+	Object.defineProperty(this, 'values', {
+		get: function() {
+			return map.keys;		
+		}
+	});
+
 	if (toString.call(init) == '[object Array]') {
 		init.forEach(function(v) {
 			map[v] = 1;
@@ -34,6 +40,25 @@ function HashSet(init) {
 	this.remove = function(val) {
 		map[val] = undefined;
 	};
+
+	this.isSubSetOf = function(hashset) {
+		if (length < 1) {
+			return true;
+		}
+
+		if (hashset.length < 1) {
+			return false;
+		}
+
+		var values = this.values;
+		values.forEach(function(v) {
+			if (!hashset.contains(v)) {
+				return false;
+			}
+		});
+
+		return true;
+	}
 }
 
 module.exports = HashSet;

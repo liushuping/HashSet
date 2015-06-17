@@ -21,23 +21,35 @@ var hashset = new HashSet('a', 'b', 'c');
 var hashset = new HashSet([1, 2, 3]);
 ```
 
-## Check whether a value is in the hash set
+## `contains`
+Check whether a value is in the hash set
 ```javascript
 hashset.contains(val);
 ```
 
-## Add a new value into the hash set
+## `add`
+Add a new value into the hash set
 ```javascript
 hashset.add(val);
 ```
 
-## Remove a value from the hash set
+## `remove`
+Remove a value from the hash set
 ```javascript
 hashset.remove(val);
 ```
 Removing an non-existing value will not trigger any error
 
-## Get the length of the hash set
+## `isSubSetOf`
+Tests whether a hash set is a sub set of another. Empty hash set is a sub set of any other hash set including another empty hash set.
+```javascript
+var hashset1 = new HashSet();
+var hashset2 = new HashSet();
+var result = hashset1.isSubSetOf(hashset2);
+```
+
+## `length`
+Get the length of the hash set
 ```javascript
 hashset.length;
 ```

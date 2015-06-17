@@ -44,4 +44,24 @@ describe('#length', function() {
 		hashset.length = 100;
 		assert.strictEqual(hashset.length, 3);
 	});
-})
+});
+
+describe('#isSubSetOf', function() {
+	it('should return true if left side is an empty hashset', function() {
+		var hashset1 = new HashSet();
+		var hashset2 = new HashSet();
+		var result = hashset1.isSubSetOf(hashset2);
+		assert.strictEqual(result, true);
+
+		hashset2.add(4, 5);
+		result = hashset1.isSubSetOf(hashset2);
+		assert.strictEqual(result, true);
+	});
+
+	it('should return false if right side is empty hashset and left side not', function() {
+		var hashset1 = new HashSet(1);
+		var hashset2 = new HashSet();
+		var result = hashset1.isSubSetOf(hashset2);
+		assert.strictEqual(result, false);
+	});
+});
