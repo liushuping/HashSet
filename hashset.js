@@ -1,8 +1,7 @@
 function HashSet(init) {
-	this.map = Object.create(null);
-	var map = this.map;
-	var length = 0 ;
-	
+	var length = 0,
+		map = Object.create(null);
+
 	Object.defineProperty(this, 'length', {
 		get: function() {
 			return length;
@@ -23,18 +22,18 @@ function HashSet(init) {
 		map[init] = 1;
 		length = 1;
 	}
+
+	this.contains = function(val) {
+		return !!map[val];
+	};
+
+	this.add = function(val) {
+		map[val] = 1;
+	};
+
+	this.remove = function(val) {
+		map[val] = undefined;
+	};
 }
-
-HashSet.prototype.contains = function(val) {
-	return !!this.map[val];
-};
-
-HashSet.prototype.add = function(val) {
-	this.map[val] = 1;
-};
-
-HashSet.prototype.remove = function(val) {
-	this.map[val] = undefined;
-};
 
 module.exports = HashSet;
