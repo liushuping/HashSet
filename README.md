@@ -39,6 +39,11 @@ hashset.remove(val);
 ```
 Removing an non-existing value will not trigger any error
 
+## length
+Get the length of the hash set
+```javascript
+hashset.length;
+```
 ## isSubSetOf
 Tests whether a hash set is a sub set of another. Empty hash set is a sub set of any other hash set including another empty hash set.
 ```javascript
@@ -46,11 +51,16 @@ var hashset1 = new HashSet();
 var hashset2 = new HashSet();
 var result = hashset1.isSubSetOf(hashset2);
 ```
-
-## length
-Get the length of the hash set
+## isSuperSetOf
+Tests whether a hash set is a super set of another. Any hash set is a super set of empty hahs set including an empty hash set.
 ```javascript
-hashset.length;
+var hashset1 = new HashSet(1, 2, 3);
+var hashset2 = new HashSet(1, 2, 3);
+var hashset3 = new HashSet();
+var result1 = hashset1.isSuperSetOf(hashset2); //true
+var result2 = hashset2.isSuperSetOf(hashset1); //true
+var result3 = hashset1.isSuperSetOf(hashset3); //true
+var result3 = hashset3.isSuperSetOf(hashset1); //false
 ```
 
 ## Test

@@ -1,5 +1,6 @@
 function HashSet(init) {
 	var length = 0,
+		self = this,
 		map = Object.create(null);
 
 	Object.defineProperty(this, 'length', {
@@ -10,7 +11,7 @@ function HashSet(init) {
 
 	Object.defineProperty(this, 'values', {
 		get: function() {
-			return map.keys;		
+			return Object.keys(map);
 		}
 	});
 
@@ -53,6 +54,25 @@ function HashSet(init) {
 		var values = this.values;
 		values.forEach(function(v) {
 			if (!hashset.contains(v)) {
+				return false;
+			}
+		});
+
+		return true;
+	}
+
+	this.isSuperSetOf = function(hashset) {
+		if (hashset.length === 0) {
+			return true;
+		}
+
+		if (this.length < hashset.length) {
+			return false;
+		}
+
+		var values = hashset.values;
+		values.forEach(function(v) {
+			if (!self.contains(v)) {
 				return false;
 			}
 		});
