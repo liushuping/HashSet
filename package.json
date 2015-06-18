@@ -26,5 +26,8 @@
   "homepage": "https://github.com/liushuping/hashset#readme",
   "directories": {
     "test": "test"
+  },
+  "dependencies": {
+    "string-hash": "^1.1.0"
   }
 }

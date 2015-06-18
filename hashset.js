@@ -1,3 +1,5 @@
+var hash = require('string-hash');
+
 function HashSet(init) {
 	var length = 0,
 		self = this,
@@ -11,43 +13,69 @@ function HashSet(init) {
 
 	Object.defineProperty(this, 'values', {
 		get: function() {
-			return Object.keys(map);
+			var subkeys;
+			var values = [];
+			var keys = Object.keys(map);
+			keys.forEach(function(key) {
+				subkeys = Object.keys(map[key]);
+				subkeys.forEach(function(subkey) {
+					values.push(map[key][subkey]);
+				});
+			});
+
+			return values;
 		}
 	});
 
 	if (toString.call(init) == '[object Array]') {
 		init.forEach(function(v) {
-			map[v] = 1;
-			length++;
+			add(v);
 		});
 	} else if (arguments.length > 1) {
 		[].forEach.call(arguments, function(v) {
-			map[v] = 1;
-			length++;
+			console.log('arguments add item: ', v, length);
+			add(v);
 		});
 	} else if (arguments.length === 1) {
-		map[init] = 1;
-		length = 1;
+		add(init);
 	}
 
 	this.contains = function(val) {
-		return !!map[val];
+		var type = toString.call(val);
+		if (map[type] === undefined) {
+			return false;
+		}
+
+		var key = hash('' + val);
+		return map[type][key] !== undefined;
 	};
 
-	this.add = function(val) {
-		if (!map[val]) {
+	function add(val) {
+		var type = toString.call(val);
+		if (map[type] === undefined) {
+			map[type] = Object.create(null);
+		}
+
+		var key = hash('' + val);
+		if (map[type][key] === undefined) {
+			map[type][key] = val;
 			length++;
 		}
-
-		map[val] = 1;
 	};
 
+	this.add = add;
+
 	this.remove = function(val) {
-		if (!!map[val]) {
-			length--;
+		var type = toString.call(val);
+		if (map[type] === undefined) {
+			return;
 		}
 
-		map[val] = undefined;
+		var key = hash('' + val);
+		if (map[type][key] !== undefined) {
+			map[type][key] = undefined;
+			length--;
+		}
 	};
 
 	this.isSubSetOf = function(hashset) {

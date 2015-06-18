@@ -26,6 +26,20 @@ describe('#contains', function() {
 		assert.strictEqual(hashset.contains(3), true);
 		assert.strictEqual(hashset.contains(4), true);
 	});
+
+	it('should differentiate string and number', function() {
+		var hashset = new HashSet(1);
+		hashset.add('1');
+		assert.strictEqual(hashset.contains(1), true);
+		assert.strictEqual(hashset.contains('1'), true);
+	});
+
+	it('should compare reference types', function() {
+		var arr = [1, 2, 3, 4];
+		var hashset = new HashSet();
+		hashset.add(arr);
+		assert.strictEqual(hashset.contains(arr), true);
+	});
 });
 
 describe('#remove', function() {
