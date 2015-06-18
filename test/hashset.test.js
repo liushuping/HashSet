@@ -181,3 +181,24 @@ describe('#unionWith', function() {
         assert.strictEqual(hashset1.contains(3), true);
     });
 });
+
+describe('#intersectWith', function() {
+    it('should remain an empty when an empty hashset intersecting with another.', function() {
+        var hashset1 = new HashSet();
+        var hashset2 = new HashSet();
+        var hashset3 = new HashSet(1, 2, 3);
+        hashset1.intersectWith(hashset2);
+        assert.strictEqual(hashset1.length, 0);
+        hashset1.intersectWith(hashset3);
+        assert.strictEqual(hashset1.length, 0);
+    });
+
+    it('should update the hash set to intersection of both', function() {
+        var hashset1 = new HashSet(1, 2, 3);
+        var hashset2 = new HashSet(2, 3, 4);
+        hashset1.intersectWith(hashset2);
+        assert.strictEqual(hashset1.length, 2);
+        assert.strictEqual(hashset1.contains(2), true);
+        assert.strictEqual(hashset1.contains(3), true);
+    });
+});

@@ -128,6 +128,21 @@ function HashSet() {
 
         return true;
     };
+
+    this.intersectWith = function(hashset) {
+        if (length === 0) {
+            return;
+        }
+
+        var value;
+        var values = self.values;
+        for (var i = 0; i < values.length; ++i) {
+            value = values[i];
+            if (!hashset.contains(value)) {
+                self.remove(value);
+            }
+        }
+    }
 }
 
 module.exports = HashSet;
