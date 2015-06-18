@@ -86,7 +86,7 @@ console.log(hashset1.values); //[1,2,3];
 
 ### intersectWith
 Intersect current hash set with another
-```
+```javascript
 var hashset1 = new HashSet(1, 2, 3);
 var hashset2 = new HashSet(2, 3, 4);
 hashset1.intersectWith(hashset2);
