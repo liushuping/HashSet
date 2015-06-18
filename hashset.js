@@ -1,16 +1,18 @@
 var hash = require('string-hash');
 
-function HashSet() {
+module.exports = function HashSet() {
     var length = 0,
         self = this,
         map = Object.create(null);
 
+    // defines the length property as read-only
     Object.defineProperty(this, 'length', {
         get: function() {
             return length;
         }
     });
 
+    // defines the values property as read-only
     Object.defineProperty(this, 'values', {
         get: function() {
             var subkeys;
@@ -31,7 +33,18 @@ function HashSet() {
         add(v);
     });
 
-    this.contains = function(val) {
+    // exporting public methods
+    this.contains = contains;
+    this.equals = equals;
+    this.add = add;
+    this.remove = remove;
+    this.isSubSetOf = isSubSetOf;
+    this.isSuperSetOf = isSuperSetOf;
+    this.unionWith = unionWith;
+    this.intersectWith = intersectWith;
+
+    // helper functions
+    function contains(val) {
         var type = toString.call(val);
         if (map[type] === undefined) {
             return false;
@@ -54,9 +67,7 @@ function HashSet() {
         }
     };
 
-    this.add = add;
-
-    this.remove = function(val) {
+    function remove(val) {
         var type = toString.call(val);
         if (map[type] === undefined) {
             return;
@@ -69,7 +80,7 @@ function HashSet() {
         }
     };
 
-    this.isSubSetOf = function(hashset) {
+    function isSubSetOf(hashset) {
         if (length < 1) {
             return true;
         }
@@ -88,7 +99,7 @@ function HashSet() {
         return true;
     }
 
-    this.isSuperSetOf = function(hashset) {
+    function isSuperSetOf(hashset) {
         if (hashset.length === 0) {
             return true;
         }
@@ -107,14 +118,14 @@ function HashSet() {
         return true;
     }
 
-    this.unionWith = function(hashset) {
+    function unionWith(hashset) {
         var values = hashset.values;
         values.forEach(function(v) {
             self.add(v);
         });
     }
 
-    this.equals = function(hashset) {
+    function equals(hashset) {
         if (self.length !== hashset.length) {
             return false;
         }
@@ -129,7 +140,7 @@ function HashSet() {
         return true;
     };
 
-    this.intersectWith = function(hashset) {
+    function intersectWith(hashset) {
         if (length === 0) {
             return;
         }
@@ -144,5 +155,3 @@ function HashSet() {
         }
     }
 }
-
-module.exports = HashSet;
