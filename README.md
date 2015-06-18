@@ -29,6 +29,14 @@ hashset.length;
 ```
 
 ## Methods
+### equals
+Tests whether current hash set equals to another
+```javascript
+var hashset1 = new HashSet(1, 2, 3, 4, 5);
+var hashset2 = new HashSet(1, 2, 3, 4, 5);
+var result = hashset1.equals(hashset2); //true
+```
+
 ### contains
 Check whether a value is in the hash set
 ```javascript
@@ -65,6 +73,15 @@ var result1 = hashset1.isSuperSetOf(hashset2); //true
 var result2 = hashset2.isSuperSetOf(hashset1); //true
 var result3 = hashset1.isSuperSetOf(hashset3); //true
 var result3 = hashset3.isSuperSetOf(hashset1); //false
+```
+
+### unionWith
+Union current hash set with another
+```javascript
+var hashset1 = new HashSet(1, 2);
+var hashset2 = new HashSet(2, 3);
+hashset1.unionWith(hashset2);
+console.log(hashset1.values); //[1,2,3];
 ```
 
 ## Test

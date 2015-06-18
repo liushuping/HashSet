@@ -64,6 +64,13 @@ describe('#isSubSetOf', function() {
 		var result = hashset1.isSubSetOf(hashset2);
 		assert.strictEqual(result, false);
 	});
+
+	it('should return false if right side has value not existing in lef side', function() {
+		var hashset1 = new HashSet(1, 2, 3);
+		var hashset2 = new HashSet(1, 2, 4);
+		var result = hashset1.isSubSetOf(hashset2);
+		assert.strictEqual(result, false);
+	});
 });
 
 describe('#isSuperSetOf', function() {
@@ -96,5 +103,66 @@ describe('#isSuperSetOf', function() {
 
 		assert.strictEqual(result1, true);
 		assert.strictEqual(result2, false);
+	});
+
+	it('should return false if right side hash set has value not existing in left side', function() {
+		var hashset1 = new HashSet(1, 2, 3);
+		var hashset2 = new HashSet(2, 3, 4);
+		var result = hashset1.isSuperSetOf(hashset2);
+		assert.strictEqual(result, false);
+	});
+});
+
+describe('#equals', function() {
+	it('should return true when testing 2 empty hash sets', function() {
+		var hashset1 = new HashSet();
+		var hashset2 = new HashSet();
+		var result = hashset1.equals(hashset2);
+		result = result && hashset2.equals(hashset1);
+		assert.strictEqual(result, true);
+	});
+
+	it('should return false when lengths of 2 hash sets do not match', function() {
+		var hashset1 = new HashSet();
+		var hashset2 = new HashSet(1);
+		var result = hashset1.equals(hashset2);
+		assert.strictEqual(result, false);
+	});
+
+	it('should return true if 2 hash sets have identical values', function() {
+		var hashset1 = new HashSet(1, 2, 3, 4, 5);
+		var hashset2 = new HashSet(1, 2, 3, 4, 5);
+		var result = hashset1.equals(hashset2);
+		assert.strictEqual(result, true);
+		result = hashset2.equals(hashset1);
+		assert.strictEqual(result, true);
+	});
+
+	it('should return false if 2 hash set have different values', function() {
+		var hashset1 = new HashSet(1, 2, 6, 4, 5);
+		var hashset2 = new HashSet(1, 2, 3, 4, 5);
+		var result = hashset1.equals(hashset2);
+		assert.strictEqual(result, false);
+		result = hashset2.equals(hashset1);
+		assert.strictEqual(result, false);
+	});
+});
+
+describe('#unionWith', function() {
+	it('should remain unchanged when union with an empty hash set', function() {
+		var hashset1 = new HashSet(1, 2, 3);
+		var hashset2 = new HashSet();
+		hashset1.unionWith(hashset2);
+		assert.strictEqual(hashset1.length, 3);
+	});
+
+	it('should merge 2 hash sets', function() {
+		var hashset1 = new HashSet(1, 2);
+		var hashset2 = new HashSet(2, 3);
+		hashset1.unionWith(hashset2);
+		assert.strictEqual(hashset1.length, 3);
+		assert.strictEqual(hashset1.contains(1), true);
+		assert.strictEqual(hashset1.contains(2), true);
+		assert.strictEqual(hashset1.contains(3), true);
 	});
 });

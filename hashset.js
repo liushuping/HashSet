@@ -35,10 +35,18 @@ function HashSet(init) {
 	};
 
 	this.add = function(val) {
+		if (!map[val]) {
+			length++;
+		}
+
 		map[val] = 1;
 	};
 
 	this.remove = function(val) {
+		if (!!map[val]) {
+			length--;
+		}
+
 		map[val] = undefined;
 	};
 
@@ -51,12 +59,12 @@ function HashSet(init) {
 			return false;
 		}
 
-		var values = this.values;
-		values.forEach(function(v) {
-			if (!hashset.contains(v)) {
+		var values = self.values;
+		for (var i in values) {
+			if (!hashset.contains(values[i])) {
 				return false;
 			}
-		});
+		}
 
 		return true;
 	}
@@ -71,14 +79,36 @@ function HashSet(init) {
 		}
 
 		var values = hashset.values;
-		values.forEach(function(v) {
-			if (!self.contains(v)) {
+		for (var i in values) {
+			if (!self.contains(values[i])) {
 				return false;
 			}
-		});
+		}
 
 		return true;
 	}
+
+	this.unionWith = function(hashset) {
+		var values = hashset.values;
+		values.forEach(function(v) {
+			self.add(v);
+		});
+	}
+
+	this.equals = function(hashset) {
+		if (self.length !== hashset.length) {
+			return false;
+		}
+
+		var values = hashset.values;
+		for (var i in values) {
+			if (!self.contains(values[i])) {
+				return false;
+			}
+		}
+
+		return true;
+	};
 }
 
 module.exports = HashSet;
