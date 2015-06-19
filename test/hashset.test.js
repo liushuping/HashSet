@@ -39,6 +39,8 @@ describe('#contains', function() {
         hashset.add('1');
         assert.strictEqual(hashset.contains(1), true);
         assert.strictEqual(hashset.contains('1'), true);
+        var hashset = new HashSet(1, '1', [1]);
+        assert.strictEqual(hashset.length, 3);
     });
 
     it('should compare reference types', function() {

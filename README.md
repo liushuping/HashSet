@@ -17,8 +17,8 @@ var hashset = new HashSet('a');
 //Create a hash set an initialize it with a set of values
 var hashset = new HashSet('a', 'b', 'c');
 
-//Create a hash set an initialize it with an array of avalues
-var hashset = new HashSet([1, 2, 3]);
+//Create a hash set an initialize it with 3 different values
+var hashset = new HashSet(1, '1', [1]);
 ```
 
 ## Properties
