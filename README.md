@@ -90,7 +90,7 @@ Intersect current hash set with another
 var hashset1 = new HashSet(1, 2, 3);
 var hashset2 = new HashSet(2, 3, 4);
 hashset1.intersectWith(hashset2);
-hashset1.length); //2
+hashset1.length; //2
 hashset1.contains(2); //true
 hashset1.contains(3); //true
 hashset1.contains(4); //false
