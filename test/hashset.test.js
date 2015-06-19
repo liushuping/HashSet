@@ -53,7 +53,18 @@ describe('#add', function() {
         assert.strictEqual(hashset.length, 2);
         assert.strictEqual(hashset.contains(a), true);
         assert.strictEqual(hashset.contains(b), true);
-    })
+    });
+
+    it('should return true if successfully added an element', function() {
+        var hashset = new HashSet();
+        assert.strictEqual(hashset.add(1), true);
+        assert.strictEqual(hashset.add('abc'), true);
+    });
+
+    it('should return false if failed to add an element', function() {
+        var hashset = new HashSet(1);
+        assert.strictEqual(hashset.add(1), false);
+    });
 });
 
 describe('#remove', function() {

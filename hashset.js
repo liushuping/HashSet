@@ -54,15 +54,18 @@ module.exports = function HashSet() {
         if (map[type][key] === undefined) {
             map[type][key] = [val];
             length++;
+            return true;
         } else {
             var i = 0;
             var arr = map[type][key];
             for (; i < arr.length; ++i) {
-                if (arr[i] === val) return;
+                if (arr[i] === val)
+                    return false;
             }
 
             arr.push(val);
             length++;
+            return true;
         }
     }
 
