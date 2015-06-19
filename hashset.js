@@ -1,8 +1,8 @@
 var hash = require('string-hash');
 
 module.exports = function HashSet() {
-    var length = 0,
-        map = Object.create(null);
+    var length = 0;
+    var map = Object.create(null);
 
     // defines the length property as read-only
     Object.defineProperty(this, 'length', {
@@ -33,7 +33,15 @@ module.exports = function HashSet() {
             return false;
 
         var key = hash('' + val);
-        return map[type][key] !== undefined;
+        if (map[type][key] === undefined)
+            return false;
+
+        var arr = map[type][key];
+        for (var i = 0; i < arr.length; ++i) {
+            if (arr[i] === val) return true;
+        }
+
+        return false;
     }
 
     function add(val) {
@@ -64,13 +72,14 @@ module.exports = function HashSet() {
             return;
 
         var key = hash('' + val);
-        if (map[type][key] !== undefined) {
-            var arr = map[type][key];
-            for (var i = 0; i < arr.length; ++i) {
-                if (arr[i] === val) {
-                    arr[i] = undefined;
-                    length--;
-                }
+        if (map[type][key] === undefined)
+            return;
+
+        var arr = map[type][key];
+        for (var i = 0; i < arr.length; ++i) {
+            if (arr[i] === val) {
+                arr[i] = undefined;
+                length--;
             }
         }
     }
@@ -133,7 +142,8 @@ module.exports = function HashSet() {
     }
 
     function equals(hashset) {
-        if (length !== hashset.length) return false;
+        if (length !== hashset.length)
+            return false;
 
         var values = hashset.toArray();
         for (var i in values) {
@@ -147,12 +157,10 @@ module.exports = function HashSet() {
     function intersectWith(hashset) {
         if (length === 0) return;
 
-        var value;
         var values = toArray();
         for (var i = 0; i < values.length; ++i) {
-            value = values[i];
-            if (!hashset.contains(value))
-                remove(value);
+            if (!hashset.contains(values[i]))
+                remove(values[i]);
         }
     }
 }

@@ -193,6 +193,17 @@ describe('#unionWith', function() {
         assert.strictEqual(hashset1.contains(2), true);
         assert.strictEqual(hashset1.contains(3), true);
     });
+
+    it('should merge 2 objects even they have same literal value', function() {
+        var obj1 = {};
+        var obj2 = {};
+        var hashset1 = new HashSet(obj1);
+        var hashset2 = new HashSet(obj2);
+        hashset1.unionWith(hashset2);
+        assert.strictEqual(hashset1.length, 2);
+        assert.strictEqual(hashset1.contains(obj1), true);
+        assert.strictEqual(hashset1.contains(obj2), true);
+    });
 });
 
 describe('#intersectWith', function() {
@@ -213,5 +224,14 @@ describe('#intersectWith', function() {
         assert.strictEqual(hashset1.length, 2);
         assert.strictEqual(hashset1.contains(2), true);
         assert.strictEqual(hashset1.contains(3), true);
+    });
+
+    it('should exclude differnt reference values even they have same literal value', function() {
+        var obj1 = {};
+        var obj2 = {};
+        var hashset1 = new HashSet(obj1);
+        var hashset2 = new HashSet(obj2);
+        hashset1.intersectWith(hashset2);
+        assert.strictEqual(hashset1.length, 0);
     });
 });
