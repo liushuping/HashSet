@@ -74,6 +74,21 @@ describe('#remove', function() {
             hashset.remove('a');
         });
     });
+
+    it('should return true if successfully removed an element', function() {
+        var hashset = new HashSet(1, 2, 3);
+        assert.strictEqual(hashset.remove(1), true);
+        assert.strictEqual(hashset.remove(2), true);
+    });
+
+    it('should return false if failed to remove and element', function() {
+        var hashset = new HashSet(1, 2, 3);
+        assert.strictEqual(hashset.remove(4), false);
+        var obj1 = {};
+        var obj2 = {};
+        hashset = new HashSet(obj1);
+        assert.strictEqual(hashset.remove(obj2), false);
+    });
 });
 
 describe('#length', function() {

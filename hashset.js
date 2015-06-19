@@ -72,19 +72,22 @@ module.exports = function HashSet() {
     function remove(val) {
         var type = toString.call(val);
         if (map[type] === undefined)
-            return;
+            return false;
 
         var key = hash('' + val);
         if (map[type][key] === undefined)
-            return;
+            return false;
 
         var arr = map[type][key];
         for (var i = 0; i < arr.length; ++i) {
             if (arr[i] === val) {
                 arr[i] = undefined;
                 length--;
+                return true;
             }
         }
+
+        return false;
     }
 
     function toArray() {
