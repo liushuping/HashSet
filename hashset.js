@@ -2,33 +2,12 @@ var hash = require('string-hash');
 
 module.exports = function HashSet() {
     var length = 0,
-        self = this,
         map = Object.create(null);
 
     // defines the length property as read-only
     Object.defineProperty(this, 'length', {
         get: function() {
             return length;
-        }
-    });
-
-    // defines the values property as read-only
-    Object.defineProperty(this, 'values', {
-        get: function() {
-            var subkeys;
-            var values = [];
-            var keys = Object.keys(map);
-            keys.forEach(function(key) {
-                subkeys = Object.keys(map[key]);
-                subkeys.forEach(function(subkey) {
-                    var arr = map[key][subkey];
-                    for (var i = 0; i < arr.length; ++i) {
-                        values.push(arr[i]);
-                    }
-                });
-            });
-
-            return values;
         }
     });
 
@@ -41,6 +20,7 @@ module.exports = function HashSet() {
     this.equals = equals;
     this.add = add;
     this.remove = remove;
+    this.toArray = toArray;
     this.isSubSetOf = isSubSetOf;
     this.isSuperSetOf = isSuperSetOf;
     this.unionWith = unionWith;
@@ -54,7 +34,7 @@ module.exports = function HashSet() {
 
         var key = hash('' + val);
         return map[type][key] !== undefined;
-    };
+    }
 
     function add(val) {
         var type = toString.call(val);
@@ -76,7 +56,7 @@ module.exports = function HashSet() {
             arr.push(val);
             length++;
         }
-    };
+    }
 
     function remove(val) {
         var type = toString.call(val);
@@ -93,7 +73,25 @@ module.exports = function HashSet() {
                 }
             }
         }
-    };
+    }
+
+    function toArray() {
+        var subkeys;
+        var values = [];
+        var keys = Object.keys(map);
+
+        keys.forEach(function(key) {
+            subkeys = Object.keys(map[key]);
+            subkeys.forEach(function(subkey) {
+                var arr = map[key][subkey];
+                for (var i = 0; i < arr.length; ++i) {
+                    values.push(arr[i]);
+                }
+            });
+        });
+
+        return values;
+    }
 
     function isSubSetOf(hashset) {
         if (length < 1)
@@ -102,7 +100,7 @@ module.exports = function HashSet() {
         if (hashset.length < 1)
             return false;
 
-        var values = self.values;
+        var values = toArray();
         for (var i in values) {
             if (!hashset.contains(values[i]))
                 return false;
@@ -118,9 +116,9 @@ module.exports = function HashSet() {
         if (this.length < hashset.length)
             return false;
 
-        var values = hashset.values;
+        var values = hashset.toArray();
         for (var i in values) {
-            if (!self.contains(values[i]))
+            if (!contains(values[i]))
                 return false;
         }
 
@@ -128,33 +126,33 @@ module.exports = function HashSet() {
     }
 
     function unionWith(hashset) {
-        var values = hashset.values;
+        var values = hashset.toArray();
         values.forEach(function(v) {
-            self.add(v);
+            add(v);
         });
     }
 
     function equals(hashset) {
-        if (self.length !== hashset.length) return false;
+        if (length !== hashset.length) return false;
 
-        var values = hashset.values;
+        var values = hashset.toArray();
         for (var i in values) {
-            if (!self.contains(values[i]))
+            if (!contains(values[i]))
                 return false;
         }
 
         return true;
-    };
+    }
 
     function intersectWith(hashset) {
         if (length === 0) return;
 
         var value;
-        var values = self.values;
+        var values = toArray();
         for (var i = 0; i < values.length; ++i) {
             value = values[i];
             if (!hashset.contains(value))
-                self.remove(value);
+                remove(value);
         }
     }
 }
