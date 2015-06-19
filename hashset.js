@@ -1,6 +1,14 @@
 var hash = require('string-hash');
 
 module.exports = function HashSet() {
+    if (!(this instanceof HashSet)) {
+        var hashset = new HashSet();
+        for (var i = 0; i < arguments.length; ++i)
+            hashset.add(arguments[i]);
+
+        return hashset;
+    }
+
     var length = 0;
     var map = Object.create(null);
 

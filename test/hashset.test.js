@@ -8,6 +8,12 @@ describe('constructor', function() {
         assert.strictEqual(hashset.length, 1);
         assert.strictEqual(hashset.contains(arr), true);
     });
+
+    it('should also instantiate an new instance even new operation is omitted', function() {
+        var hashset = HashSet(1, 2, 3);
+        assert.strictEqual(hashset instanceof HashSet, true);
+        assert.strictEqual(hashset.length, 3);
+    });
 });
 
 describe('#contains', function() {
