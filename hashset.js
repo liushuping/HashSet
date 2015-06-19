@@ -21,7 +21,10 @@ module.exports = function HashSet() {
             keys.forEach(function(key) {
                 subkeys = Object.keys(map[key]);
                 subkeys.forEach(function(subkey) {
-                    values.push(map[key][subkey]);
+                    var arr = map[key][subkey];
+                    for (var i = 0; i < arr.length; ++i) {
+                        values.push(arr[i]);
+                    }
                 });
             });
 
@@ -46,9 +49,8 @@ module.exports = function HashSet() {
     // helper functions
     function contains(val) {
         var type = toString.call(val);
-        if (map[type] === undefined) {
+        if (map[type] === undefined)
             return false;
-        }
 
         var key = hash('' + val);
         return map[type][key] !== undefined;
@@ -62,57 +64,64 @@ module.exports = function HashSet() {
 
         var key = hash('' + val);
         if (map[type][key] === undefined) {
-            map[type][key] = val;
+            map[type][key] = [val];
+            length++;
+        } else {
+            var i = 0;
+            var arr = map[type][key];
+            for (; i < arr.length; ++i) {
+                if (arr[i] === val) return;
+            }
+
+            arr.push(val);
             length++;
         }
     };
 
     function remove(val) {
         var type = toString.call(val);
-        if (map[type] === undefined) {
+        if (map[type] === undefined)
             return;
-        }
 
         var key = hash('' + val);
         if (map[type][key] !== undefined) {
-            map[type][key] = undefined;
-            length--;
+            var arr = map[type][key];
+            for (var i = 0; i < arr.length; ++i) {
+                if (arr[i] === val) {
+                    arr[i] = undefined;
+                    length--;
+                }
+            }
         }
     };
 
     function isSubSetOf(hashset) {
-        if (length < 1) {
+        if (length < 1)
             return true;
-        }
 
-        if (hashset.length < 1) {
+        if (hashset.length < 1)
             return false;
-        }
 
         var values = self.values;
         for (var i in values) {
-            if (!hashset.contains(values[i])) {
+            if (!hashset.contains(values[i]))
                 return false;
-            }
         }
 
         return true;
     }
 
     function isSuperSetOf(hashset) {
-        if (hashset.length === 0) {
+        if (hashset.length === 0)
             return true;
-        }
 
-        if (this.length < hashset.length) {
+        if (this.length < hashset.length)
             return false;
-        }
 
         var values = hashset.values;
         for (var i in values) {
-            if (!self.contains(values[i])) {
+            if (!self.contains(values[i]))
                 return false;
-            }
         }
 
         return true;
@@ -126,32 +135,26 @@ module.exports = function HashSet() {
     }
 
     function equals(hashset) {
-        if (self.length !== hashset.length) {
-            return false;
-        }
+        if (self.length !== hashset.length) return false;
 
         var values = hashset.values;
         for (var i in values) {
-            if (!self.contains(values[i])) {
+            if (!self.contains(values[i]))
                 return false;
-            }
         }
 
         return true;
     };
 
     function intersectWith(hashset) {
-        if (length === 0) {
-            return;
-        }
+        if (length === 0) return;
 
         var value;
         var values = self.values;
         for (var i = 0; i < values.length; ++i) {
             value = values[i];
-            if (!hashset.contains(value)) {
+            if (!hashset.contains(value))
                 self.remove(value);
-            }
         }
     }
 }

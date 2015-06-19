@@ -43,6 +43,19 @@ describe('#contains', function() {
     });
 });
 
+describe('#add', function() {
+    it('should has length 2 when adding 2 objects', function() {
+        var a = [];
+        var b = [];
+        var hashset = new HashSet();
+        hashset.add(a);
+        hashset.add(b);
+        assert.strictEqual(hashset.length, 2);
+        assert.strictEqual(hashset.contains(a), true);
+        assert.strictEqual(hashset.contains(b), true);
+    })
+});
+
 describe('#remove', function() {
     it('should not throw error when removing an no-existing element.', function() {
         var hashset = new HashSet();
