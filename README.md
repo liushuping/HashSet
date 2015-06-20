@@ -30,7 +30,7 @@ hashset.length;
 
 ## Methods
 ### equals
-Tests whether current hash set equals to another
+Test whether current hash set equals to another
 ```javascript
 var hashset1 = new HashSet(1, 2, 3, 4, 5);
 var hashset2 = new HashSet(1, 2, 3, 4, 5);
@@ -56,15 +56,23 @@ hashset.remove(val);
 ```
 Removing an non-existing value will not trigger any error
 
+### toArray
+Convert and output all values into an array
+```javascript
+var hashset = new HashSet(1, 2, 3);
+hashset.toArray();  // [1, 2, 3]
+```
+There is no gurantee the values of the output array the same sequence as value added to the hash set.
+
 ### isSubSetOf
-Tests whether a hash set is a sub set of another. Empty hash set is a sub set of any other hash set including another empty hash set.
+Test whether a hash set is a sub set of another. Empty hash set is a sub set of any other hash set including another empty hash set.
 ```javascript
 var hashset1 = new HashSet();
 var hashset2 = new HashSet();
 var result = hashset1.isSubSetOf(hashset2);
 ```
 ### isSuperSetOf
-Tests whether a hash set is a super set of another. Any hash set is a super set of empty hahs set including an empty hash set.
+Test whether a hash set is a super set of another. Any hash set is a super set of empty hahs set including an empty hash set.
 ```javascript
 var hashset1 = new HashSet(1, 2, 3);
 var hashset2 = new HashSet(1, 2, 3);
@@ -81,7 +89,9 @@ Union current hash set with another
 var hashset1 = new HashSet(1, 2);
 var hashset2 = new HashSet(2, 3);
 hashset1.unionWith(hashset2);
-console.log(hashset1.values); //[1,2,3];
+hashset1.contains(1); //true
+hashset1.contains(2); //true
+hashset1.contains(3); //true
 ```
 
 ### intersectWith

@@ -99,6 +99,22 @@ describe('#remove', function() {
     });
 });
 
+describe('#toArray', function() {
+    it('should export all values to an array', function() {
+        var hashset = new HashSet(1, 2, 3);
+        assert.strictEqual(hashset.toArray().length, 3);
+        var obj1 = [1];
+        var obj2 = {};
+        hashset = new HashSet(1, '1', obj1, obj2);
+        var arr = hashset.toArray();
+        assert.strictEqual(arr.length, 4);
+        assert.strictEqual(arr[0], 1);
+        assert.strictEqual(arr[1], '1');
+        assert.strictEqual(arr[2], obj1);
+        assert.strictEqual(arr[3], obj2);
+    });
+});
+
 describe('#length', function() {
     it('should be readonly property', function() {
         var hashset = new HashSet(1, 2, 3);
