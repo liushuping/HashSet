@@ -1,6 +1,6 @@
 {
   "name": "hashset",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A simple hash set in JavaScript",
   "main": "hashset.js",
   "scripts": {
